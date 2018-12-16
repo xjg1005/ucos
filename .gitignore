@@ -1,0 +1,6 @@
+/OBJ/*
+/USER/DebugConfig/*
+*.scvd
+/USER/JLinkLog.txt
+/USER/JLinkSettings.ini
+/USER/ucos.uvguix.xjg_1
