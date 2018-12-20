@@ -1,6 +1,7 @@
 #include "app_config.h"
 #include "led.h"
 #include "app_status.h"
+#include "wifi_module.h"
 //任务控制块
 OS_TCB StartTaskTCB;
 //任务堆栈	
@@ -16,6 +17,7 @@ int main(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//中断分组配置
 	uart_init(115200);  //串口初始化
 	LED_Init();         //LED初始化
+	init_wifi_module();
 
 	
 	OSInit(&err);		//初始化UCOSIII

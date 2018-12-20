@@ -46,7 +46,8 @@ FILE __stdout;
 //定义_sys_exit()以避免使用半主机模式    
 int _sys_exit(int x) 
 { 
-	x = x; 
+	x = x;
+	return 0;	
 } 
 //重定义fputc函数 
 int fputc(int ch, FILE *f)
