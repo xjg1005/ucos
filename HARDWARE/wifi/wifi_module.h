@@ -53,5 +53,6 @@
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 u8 SPI1_ReadWriteByte(u8 TxData);
-int init_wifi_module(void);
+int init_wifi_module_STA(void);
+int  init_wifi_module_AP(void);
 #endif

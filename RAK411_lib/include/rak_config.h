@@ -23,7 +23,7 @@
 
 
 /*NET MODE SELECT*/
-#define RAK_NET_MODE			 		NET_AP
+#define RAK_NET_MODE			 		NET_STATION
 
 
 /*POWER MODE*/
@@ -38,8 +38,8 @@
 
 /*AP */
 #define RAK_AP_CHANNEL		  			7	        //1,6,11 is in common use
-#define RAK_AP_SSID			     		"RAK411_AP"        //in ap mode ,the ssid you create.  
-#define RAK_AP_PSK			     		"1234567890"    //in ap mode ,psk when you join the ap.
+#define RAK_AP_SSID			     		"DOU"        //in ap mode ,the ssid you create.  
+#define RAK_AP_PSK			     		"c5rsycsg"    //in ap mode ,psk when you join the ap.
 #define RAK_AP_HIDE_MODE				HIDE_DISENABLE
 #define RAK_COUNTRYCODE				 	"CN"            //country code
 #define RAK_LISTEN_MODE					100             //default value , unit ms. do not modify if you don'care

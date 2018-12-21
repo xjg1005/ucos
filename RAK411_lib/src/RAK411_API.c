@@ -36,6 +36,7 @@ int spi_Read(void)
 //  }
 	temp = SPI1_ReadWriteByte(0xff);
    GPIO_SetBits(SPIx_CS_GPIO_PORT, SPIx_CS_Pin);
+		delay_us(10);
 //	printf("R:tx_data=%x  rx_data=%x\n",tx_data,temp);
 	 return temp;
 }

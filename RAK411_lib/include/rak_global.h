@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 #include "stdint.h"
-#include "sys.h"
+#include "delay.h"
 #include "stm32f4xx.h"
 
 #define  int32 					   int32_t
@@ -579,16 +579,16 @@ void rak_asciiDotAddressTouint32(uint8 *hexAddr, int8 *asciiDotAddress);
 
 #define CHECKPKT_DELAY   	100
 /*@ Command response timeout */
-#define RAK_RESPONSE_TIMEOUT(A)    		//RAK_RESET_TIMER3; \
-//	                                        while (rak_checkPktIrq() != RAK_TRUE) \
-//                                                {		\
-//												SYS_Delay(CHECKPKT_DELAY);                                  \
-//	                                        if (RAK_INC_TIMER_3 > A)  \
-//	                                           {							   \
-//		                                     retval = 1;				   \
-//		                                     break;					   \
-//	                                           }                               \
-//                                                }  
+#define RAK_RESPONSE_TIMEOUT(A)    		RAK_RESET_TIMER3; \
+	                                        while (rak_checkPktIrq() != RAK_TRUE) \
+                                                {		\
+												delay_us(CHECKPKT_DELAY);                                  \
+	                                        if (RAK_INC_TIMER_3 > A)  \
+	                                           {							   \
+		                                     retval = 1;				   \
+		                                     break;					   \
+	                                           }                               \
+                                                }  
 
 
 
