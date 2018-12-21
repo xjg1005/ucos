@@ -35,11 +35,14 @@
 /*AP HIDE MODE*/
 #define HIDE_ENABLE			    		1
 #define HIDE_DISENABLE					0
+/*STA*/
+#define RAK_STA_SSID			     		"DOU"        //in ap mode ,the ssid you create.  
+#define RAK_STA_PSK			     		"c5rsycsg"    //in ap mode ,psk when you join the ap.
 
 /*AP */
 #define RAK_AP_CHANNEL		  			7	        //1,6,11 is in common use
-#define RAK_AP_SSID			     		"DOU"        //in ap mode ,the ssid you create.  
-#define RAK_AP_PSK			     		"c5rsycsg"    //in ap mode ,psk when you join the ap.
+#define RAK_AP_SSID			     		"JKH"        //in ap mode ,the ssid you create.  
+#define RAK_AP_PSK			     		"123456789"    //in ap mode ,psk when you join the ap.
 #define RAK_AP_HIDE_MODE				HIDE_DISENABLE
 #define RAK_COUNTRYCODE				 	"CN"            //country code
 #define RAK_LISTEN_MODE					100             //default value , unit ms. do not modify if you don'care

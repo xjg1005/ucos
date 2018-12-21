@@ -50,7 +50,7 @@ int16 rak_init_struct(rak_api *ptrStrApi)
 	rak_asciiDotAddressTouint32((uint8 *)&ptrStrApi->uIpstaticFrame.dns2, (int8 *)	RAK_IPSTATIC_DNS2);	
 	
 	//dist ip address		
-	rak_asciiDotAddressTouint32((uint8 *)&DIST_IP,DIST_ADDR);
+	rak_asciiDotAddressTouint32((uint8 *)&DIST_IP,(int8 *)DIST_ADDR);
 
 	//dhcp mode
 	ptrStrApi->uIpdhcpFrame.mode= RAK_DHCP_MODE;

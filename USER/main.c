@@ -17,7 +17,8 @@ int main(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//中断分组配置
 	uart_init(115200);  //串口初始化
 	LED_Init();         //LED初始化
-	init_wifi_module_STA();
+	init_wifi_module_AP();
+		init_wifi_module_STA();
 
 	
 	OSInit(&err);		//初始化UCOSIII

@@ -104,6 +104,9 @@ int init_wifi_module_STA(void)
 	Reset_config();
 //	printf("This is a Demo to printf\n");
 	rak_init_struct(&rak_strapi);
+	strcpy((char *)rak_strapi.uPskFrame.psk, RAK_STA_PSK);
+	strcpy((char *)rak_strapi.uConnFrame.ssid, RAK_STA_SSID);
+	rak_strapi.uConnFrame.mode=	NET_STATION;
 
 	while((GPIO_ReadOutputDataBit(SPIx_INT_GPIO_PORT,SPIx_INT_Pin)));
 	
@@ -219,7 +222,7 @@ int init_wifi_module_STA(void)
 		
  do
  {
-	retval = rak_ipconfig_dhcp(RAK_DHCP_MODE) ;
+	retval = rak_ipconfig_dhcp(RAK_DHCP_CLIENT_ENABLE) ;
 	if (retval!=RUN_OK)
 	{
 		  printf ("DHCP error!\r\n");
@@ -260,6 +263,9 @@ int init_wifi_module_AP(void)
 	Reset_config();
 //	printf("This is a Demo to printf\n");
 	rak_init_struct(&rak_strapi);
+	strcpy((char *)rak_strapi.uPskFrame.psk, RAK_AP_PSK);
+	strcpy((char *)rak_strapi.uConnFrame.ssid, RAK_AP_SSID);
+	rak_strapi.uConnFrame.mode=	NET_AP;
 
 	while((GPIO_ReadOutputDataBit(SPIx_INT_GPIO_PORT,SPIx_INT_Pin)));
 	rak_sys_init(&uCmdRspFrame);
@@ -374,7 +380,7 @@ int init_wifi_module_AP(void)
 		
  do
  {
-	retval = rak_ipconfig_dhcp(RAK_DHCP_MODE) ;
+	retval = rak_ipconfig_dhcp(RAK_DHCP_SERVER_ENABLE) ;
 	if (retval!=RUN_OK)
 	{
 		  printf ("DHCP error!\r\n");
