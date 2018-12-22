@@ -23,5 +23,5 @@ typedef struct {
 	 uint8_t msg_type;
 	 uint8_t *data;
 } _VEHICLE_CTL_MSG;
-
+extern _VEHICLE_CTL_MSG vehicle_ctl_msg;
 #endif

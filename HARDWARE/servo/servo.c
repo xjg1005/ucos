@@ -52,7 +52,7 @@ void servo_init(void)
 	TIM4_PWM_Init(20000-1,84-1);
 	TIM_SetCompare1(TIM4,1500-1);	//修改比较值，修改占空比
 }
-void servo_ctrl(uint8_t value)
+void servo_ctrl(uint16_t value)
 {
-	TIM_SetCompare1(TIM4,1500-1);	//修改比较值，修改占空比
+	TIM_SetCompare1(TIM4,value);	//修改比较值，修改占空比
 }

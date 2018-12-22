@@ -48,8 +48,8 @@ void WIFI_task(void *p_arg)
                     (OS_MSG_SIZE*	)&size,		
                     (CPU_TS*		)0,
                     (OS_ERR*		)&err);
+		printf("WIFI_Msg\r\n");
 		msg_wifi = (uint8_t *)msg;
-		printf("msg_wifi = %d\r\n",*msg_wifi);
 		switch(*msg_wifi){
 			case MSG_NOTIFY_GET_DATA:
 						if(rak_checkPktIrq() == RAK_TRUE)
@@ -60,10 +60,19 @@ void WIFI_task(void *p_arg)
 							{
 								 Send_RecieveDataFlag=RAK_TRUE;			
 							}
-							printf("\nreceive data:");
 							for(i = 0;i < uCmdRspFrame.recvFrame.data_len;i++)
 							{
 									printf("%x ",uCmdRspFrame.recvFrame.recvDataBuf[i]);
+							}
+							if(uCmdRspFrame.recvFrame.recvDataBuf[0] == MSG_VEHICLE_CONTRL){
+										vehicle_ctl_msg.msg_type = uCmdRspFrame.recvFrame.recvDataBuf[1];
+										vehicle_ctl_msg.data = uCmdRspFrame.recvFrame.recvDataBuf;
+										OSQPost((OS_Q*		)&VehicleContrl_Msg,		
+														(void*		)&vehicle_ctl_msg,
+														(OS_MSG_SIZE)1,
+														(OS_OPT		)OS_OPT_POST_FIFO,
+														(OS_ERR*	)&err);
+
 							}
 						} 
 						break;

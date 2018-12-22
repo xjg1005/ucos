@@ -11,6 +11,11 @@ enum msg_type{
 	MSG_NOTIFY_GET_DATA = 0,
 	MSG_NOTIFY_SEND_DATA,
 };
+
+enum msg_contrl{
+	MSG_VEHICLE_CONTRL = 0xc0,
+};
+
 typedef struct {
 	 uint8_t msg_type;
 	 uint8_t *data;

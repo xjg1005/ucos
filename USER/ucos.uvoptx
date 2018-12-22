@@ -156,18 +156,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>130</LineNumber>
+          <LineNumber>10</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134220236</Address>
+          <Address>134218710</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\HARDWARE\wifi\wifi_module.c</Filename>
+          <Filename>..\APP\app_vehicle_contrl.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Template\../HARDWARE/wifi/wifi_module.c\130</Expression>
+          <Expression>\\Template\../APP/app_vehicle_contrl.c\10</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>

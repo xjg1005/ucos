@@ -70,7 +70,11 @@ void start_task(void *p_arg)
                 (CPU_CHAR*	)"WIFI Msg",	//消息队列名称
                 (OS_MSG_QTY	)WIFIMSG_Q_NUM,	//消息队列长度，这里设置为1
                 (OS_ERR*	)&err);		//错误码
-						 
+	OSQCreate ((OS_Q*		)&VehicleContrl_Msg,	//消息队列
+							(CPU_CHAR*	)"VehicleContrl Msg",	//消息队列名称
+							(OS_MSG_QTY	)VehicleContrl_MSG_Q_NUM,	//消息队列长度，这里设置为1
+							(OS_ERR*	)&err);		//错误码
+			 
 		//创建WIFI任务
 	OSTaskCreate((OS_TCB 	* )&WIFITaskTCB,		
 				 (CPU_CHAR	* )WIFI_TASK_NAME, 		
