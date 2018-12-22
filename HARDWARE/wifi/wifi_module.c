@@ -123,15 +123,17 @@ void EXTIX_Init(void)
 void EXTI2_IRQHandler(void)
 {
 	OS_ERR err;
-	_WIFI_MSG *msg_wifi;
-	msg_wifi->msg_type = MSG_NOTIFY_GET_DATA;
-	printf("report get data\r\n");
-
-	OSQPost((OS_Q*		)&WIFI_Msg,		
-			(void*		)msg_wifi,
+	uint8_t msg_type;
+	if((GPIO_ReadInputDataBit(SPIx_INT_GPIO_PORT,SPIx_INT_Pin))){
+		printf("MSG_NOTIFY_GET_DATA = %d\r\n",MSG_NOTIFY_GET_DATA);
+		msg_type = MSG_NOTIFY_GET_DATA;
+		printf("report get data\r\n");
+		OSQPost((OS_Q*		)&WIFI_Msg,		
+			(void*		)&msg_type,
 			(OS_MSG_SIZE)1,
 			(OS_OPT		)OS_OPT_POST_FIFO,
 			(OS_ERR*	)&err);
+	}
 
 	 EXTI_ClearITPendingBit(EXTI_Line2);//清除LINE2上的中断标志位 
 }
@@ -150,7 +152,7 @@ int init_wifi_module_STA(void)
 	strcpy((char *)rak_strapi.uConnFrame.ssid, RAK_STA_SSID);
 	rak_strapi.uConnFrame.mode=	NET_STATION;
 
-	while((GPIO_ReadOutputDataBit(SPIx_INT_GPIO_PORT,SPIx_INT_Pin)));
+	while(!(GPIO_ReadInputDataBit(SPIx_INT_GPIO_PORT,SPIx_INT_Pin)));
 	
 	rak_sys_init(&uCmdRspFrame);
 	for(i = 0; i < 18; i++)

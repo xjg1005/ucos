@@ -156,9 +156,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>128</LineNumber>
+          <LineNumber>130</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134220218</Address>
+          <Address>134220236</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -167,7 +167,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\HARDWARE\wifi\wifi_module.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Template\../HARDWARE/wifi/wifi_module.c\128</Expression>
+          <Expression>\\Template\../HARDWARE/wifi/wifi_module.c\130</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -212,7 +212,7 @@
         <AscS3>0</AscS3>
         <aSer3>0</aSer3>
         <eProf>0</eProf>
-        <aLa>1</aLa>
+        <aLa>0</aLa>
         <aPa1>0</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
@@ -234,12 +234,6 @@
       <pszMrulep></pszMrulep>
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
-      <SystemViewers>
-        <Entry>
-          <Name>System Viewer\TIM4</Name>
-          <WinId>35905</WinId>
-        </Entry>
-      </SystemViewers>
       <DebugDescription>
         <Enable>1</Enable>
         <EnableFlashSeq>1</EnableFlashSeq>

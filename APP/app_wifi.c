@@ -24,7 +24,7 @@ void WIFI_task(void *p_arg)
 	int i;
 	void *msg;
 	OS_MSG_SIZE size;
-	_WIFI_MSG *msg_wifi;
+	uint8_t *msg_wifi;
 	rak_open_socket(LOCAL_PORT,DIST_PORT,RAK_MODULE_SOCKET_MODE,(uint32_t)DIST_IP);
 		//创建定时器1
 	OSTmrCreate((OS_TMR		*)&tmr1,		//定时器1
@@ -46,9 +46,9 @@ void WIFI_task(void *p_arg)
                     (OS_MSG_SIZE*	)&size,		
                     (CPU_TS*		)0,
                     (OS_ERR*		)&err);
-		msg_wifi = (_WIFI_MSG *)msg;
-		printf("msg_wifi->msg_type = %d\r\n",msg_wifi->msg_type);
-		switch(msg_wifi->msg_type){
+		msg_wifi = (uint8_t *)msg;
+		printf("msg_wifi = %d\r\n",*msg_wifi);
+		switch(*msg_wifi){
 			case MSG_NOTIFY_GET_DATA:
 						if(rak_checkPktIrq() == RAK_TRUE)
 						{
@@ -77,11 +77,11 @@ void WIFI_task(void *p_arg)
 //定时器1的回调函数
 void tmr1_callback(void *p_tmr,void *p_arg)
 {
-	_WIFI_MSG *msg_wifi;
-	msg_wifi->msg_type = MSG_NOTIFY_SEND_DATA;
+	uint8_t msg_wifi;
+	msg_wifi = MSG_NOTIFY_SEND_DATA;
 	OS_ERR err;
 	OSQPost((OS_Q*		)&WIFI_Msg,		
-		(void*		)msg_wifi,
+		(void*		)&msg_wifi,
 		(OS_MSG_SIZE)1,
 		(OS_OPT		)OS_OPT_POST_FIFO,
 		(OS_ERR*	)&err);
