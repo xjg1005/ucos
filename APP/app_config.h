@@ -25,5 +25,7 @@
 #define WIFI_STK_SIZE 		128
 #define WIFI_TASK_NAME		"WIFI task"
 
-
+#define VehicleContrl_PRIO		5
+#define VehicleContrl_STK_SIZE 		128
+#define VehicleContrl_TASK_NAME		"VehicleContrl task"
 #endif /*__APP_CONFIG_H_H*/

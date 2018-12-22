@@ -1,5 +1,6 @@
 #include "app_config.h"
 #include "app_wifi.h"
+#include "app_vehicle_contrl.h"
 #include "wifi_module.h"
 #include "servo.h"
 
@@ -84,7 +85,21 @@ void start_task(void *p_arg)
                  (void   	* )0,					
                  (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR,
                  (OS_ERR 	* )&err);		
-								 
+			
+	OSTaskCreate((OS_TCB 	* )&VehicleContrl_TaskTCB,		
+				 (CPU_CHAR	* )VehicleContrl_TASK_NAME, 		
+                 (OS_TASK_PTR )VehicleContrl_task, 			
+                 (void		* )0,					
+                 (OS_PRIO	  )VehicleContrl_PRIO,     
+                 (CPU_STK   * )&VehicleContrl_TASK_STK[0],	
+                 (CPU_STK_SIZE)VehicleContrl_STK_SIZE/10,	
+                 (CPU_STK_SIZE)VehicleContrl_STK_SIZE,		
+                 (OS_MSG_QTY  )0,					
+                 (OS_TICK	  )0,					
+                 (void   	* )0,					
+                 (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR,
+                 (OS_ERR 	* )&err);		
+							 
 	OS_TaskSuspend((OS_TCB*)&StartTaskTCB,&err);		//挂起开始任务			 							 
 	OS_CRITICAL_EXIT();	//进入临界区	 
 }

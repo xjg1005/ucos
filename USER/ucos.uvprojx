@@ -392,6 +392,11 @@
               <FileType>1</FileType>
               <FilePath>..\APP\app_wifi.c</FilePath>
             </File>
+            <File>
+              <FileName>app_vehicle_contrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\app_vehicle_contrl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

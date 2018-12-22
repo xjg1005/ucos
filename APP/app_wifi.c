@@ -3,6 +3,7 @@
 #include "rak_global.h"
 #include "rak411_api.h"
 #include "rak_config.h"
+#include "app_vehicle_contrl.h"
 //Status任务函数
 OS_TCB WIFITaskTCB;
 CPU_STK WIFI_TASK_STK[WIFI_STK_SIZE];
@@ -13,6 +14,7 @@ volatile 	rak_intStatus		rak_strIntStatus;
 uint8 	 	Send_RecieveDataFlag=RAK_FALSE;
 uint8_t     tx_buffer[1400]; 
 static uint8_t TxBuffer[] = "****SPI - Two Boards communication based on Interrupt **** SPI Message ******** SPI Message ******** SPI Message ****";
+volatile uint8_t msg_wifi;
 
 OS_TMR	tmr1;	//定义一个定时器
 void tmr1_callback(void *p_tmr,void *p_arg); //定时器1回调函数
@@ -29,7 +31,7 @@ void WIFI_task(void *p_arg)
 		//创建定时器1
 	OSTmrCreate((OS_TMR		*)&tmr1,		//定时器1
                 (CPU_CHAR	*)"tmr1",		//定时器名字
-                (OS_TICK	 )0,			//0ms
+                (OS_TICK	 )500,			//0ms
                 (OS_TICK	 )200,          //50*10=500ms
                 (OS_OPT		 )OS_OPT_TMR_PERIODIC, //周期模式
                 (OS_TMR_CALLBACK_PTR)tmr1_callback,//定时器1回调函数
@@ -64,6 +66,7 @@ void WIFI_task(void *p_arg)
 									printf("%x ",uCmdRspFrame.recvFrame.recvDataBuf[i]);
 							}
 						} 
+						break;
 			case MSG_NOTIFY_SEND_DATA:
 						rak_send_data(0,0,uCmdRspFrame.recvFrame.socket_flag, 
 						sizeof(TxBuffer),TxBuffer);					
@@ -77,7 +80,6 @@ void WIFI_task(void *p_arg)
 //定时器1的回调函数
 void tmr1_callback(void *p_tmr,void *p_arg)
 {
-	uint8_t msg_wifi;
 	msg_wifi = MSG_NOTIFY_SEND_DATA;
 	OS_ERR err;
 	OSQPost((OS_Q*		)&WIFI_Msg,		

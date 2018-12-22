@@ -9,6 +9,7 @@
 #include "app_wifi.h"
 rak_api rak_strapi;
 rak_CmdRsp	 uCmdRspFrame;
+uint8_t msg_type;
 
 //SPI1 读写一个字节
 //TxData:要写入的字节
@@ -123,7 +124,6 @@ void EXTIX_Init(void)
 void EXTI2_IRQHandler(void)
 {
 	OS_ERR err;
-	uint8_t msg_type;
 	if((GPIO_ReadInputDataBit(SPIx_INT_GPIO_PORT,SPIx_INT_Pin))){
 		printf("MSG_NOTIFY_GET_DATA = %d\r\n",MSG_NOTIFY_GET_DATA);
 		msg_type = MSG_NOTIFY_GET_DATA;
