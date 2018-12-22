@@ -6,11 +6,9 @@
 #include "wifi_module.h"
 #include "rak_init_module.h"
 #include "delay.h"
+#include "app_wifi.h"
 rak_api rak_strapi;
 rak_CmdRsp	 uCmdRspFrame;
-volatile 	rak_intStatus		rak_strIntStatus;
-
-uint32 	 	DIST_IP;		
 
 //SPI1 读写一个字节
 //TxData:要写入的字节
@@ -94,6 +92,49 @@ static void Reset_config(void)
 	delay_ms(200);
 
 }
+void EXTIX_Init(void)
+{
+	NVIC_InitTypeDef   NVIC_InitStructure;
+	EXTI_InitTypeDef   EXTI_InitStructure;
+	
+ 
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);//使能SYSCFG时钟
+	
+ 
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource2);//PA2 连接到中断线2
+	
+  /* 配置EXTI_Line0 */
+  EXTI_InitStructure.EXTI_Line = EXTI_Line2;//LINE2
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;//中断事件
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising; 
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;//使能LINE2
+  EXTI_Init(&EXTI_InitStructure);//配置
+	
+ 
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI2_IRQn;//外部中断0
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;//抢占优先级0
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x02;//子优先级2
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;//使能外部中断通道
+  NVIC_Init(&NVIC_InitStructure);//配置
+	
+	   
+}
+//外部中断2服务程序
+void EXTI2_IRQHandler(void)
+{
+	OS_ERR err;
+	_WIFI_MSG *msg_wifi;
+	msg_wifi->msg_type = MSG_NOTIFY_GET_DATA;
+	printf("report get data\r\n");
+
+	OSQPost((OS_Q*		)&WIFI_Msg,		
+			(void*		)msg_wifi,
+			(OS_MSG_SIZE)1,
+			(OS_OPT		)OS_OPT_POST_FIFO,
+			(OS_ERR*	)&err);
+
+	 EXTI_ClearITPendingBit(EXTI_Line2);//清除LINE2上的中断标志位 
+}
 
 int init_wifi_module_STA(void)
 {
@@ -101,6 +142,7 @@ int init_wifi_module_STA(void)
 	int retval=0;
 
 	wifi_SPI1_Init();
+	EXTIX_Init();
 	Reset_config();
 //	printf("This is a Demo to printf\n");
 	rak_init_struct(&rak_strapi);

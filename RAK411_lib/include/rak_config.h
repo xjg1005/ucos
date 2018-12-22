@@ -160,10 +160,10 @@
   TCP client/UDP client : the 4 parameter must be set corectly.
 */
 /*SOCKET PARAM */
-#define  RAK_MODULE_SOCKET_MODE   		RAK_SOCKET_TCP_SEVER
+#define  RAK_MODULE_SOCKET_MODE   		RAK_SOCKET_TCP_CLIENT
 #define  LOCAL_PORT				25000
-#define  DIST_PORT				25000
-#define  DIST_ADDR		     		"192.168.7.1"
+#define  DIST_PORT				8089
+#define  DIST_ADDR		     		"192.168.1.4"
 
 /*==============================================*/
 #define DPRINTF(fmt, args...) printf(fmt, ##args)

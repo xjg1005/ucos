@@ -21,14 +21,9 @@
 //任务堆栈大小	
 #define START_STK_SIZE 		512
 
-
-
-#define Status_TASK_PRIO		4
-#define Status_STK_SIZE 		128
-#define Status_TASK_NAME		"status task"
-
-
-
+#define WIFI_TASK_PRIO		4
+#define WIFI_STK_SIZE 		128
+#define WIFI_TASK_NAME		"WIFI task"
 
 
 #endif /*__APP_CONFIG_H_H*/

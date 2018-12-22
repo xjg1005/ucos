@@ -388,9 +388,9 @@
               <FilePath>..\APP\app_config.h</FilePath>
             </File>
             <File>
-              <FileName>app_status.c</FileName>
+              <FileName>app_wifi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\APP\app_status.c</FilePath>
+              <FilePath>..\APP\app_wifi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -417,11 +417,6 @@
         <Group>
           <GroupName>HARDWARE</GroupName>
           <Files>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\LED\led.c</FilePath>
-            </File>
             <File>
               <FileName>wifi_module.c</FileName>
               <FileType>1</FileType>

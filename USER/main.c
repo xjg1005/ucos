@@ -1,7 +1,7 @@
 #include "app_config.h"
-#include "led.h"
-#include "app_status.h"
+#include "app_wifi.h"
 #include "wifi_module.h"
+
 //任务控制块
 OS_TCB StartTaskTCB;
 //任务堆栈	
@@ -16,9 +16,7 @@ int main(void)
 	delay_init(168);  	//时钟初始化
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//中断分组配置
 	uart_init(115200);  //串口初始化
-	LED_Init();         //LED初始化
-	init_wifi_module_AP();
-		init_wifi_module_STA();
+	init_wifi_module_STA();
 
 	
 	OSInit(&err);		//初始化UCOSIII
@@ -64,21 +62,28 @@ void start_task(void *p_arg)
 #endif		
 	
 	OS_CRITICAL_ENTER();	//进入临界区
-	//创建Status任务
-	OSTaskCreate((OS_TCB 	* )&StatusTaskTCB,		
-				 (CPU_CHAR	* )Status_TASK_NAME, 		
-                 (OS_TASK_PTR )Status_task, 			
+		//创建消息队列KEY_Msg
+	OSQCreate ((OS_Q*		)&WIFI_Msg,	//消息队列
+                (CPU_CHAR*	)"WIFI Msg",	//消息队列名称
+                (OS_MSG_QTY	)WIFIMSG_Q_NUM,	//消息队列长度，这里设置为1
+                (OS_ERR*	)&err);		//错误码
+						 
+		//创建WIFI任务
+	OSTaskCreate((OS_TCB 	* )&WIFITaskTCB,		
+				 (CPU_CHAR	* )WIFI_TASK_NAME, 		
+                 (OS_TASK_PTR )WIFI_task, 			
                  (void		* )0,					
-                 (OS_PRIO	  )Status_TASK_PRIO,     
-                 (CPU_STK   * )&Status_TASK_STK[0],	
-                 (CPU_STK_SIZE)Status_STK_SIZE/10,	
-                 (CPU_STK_SIZE)Status_STK_SIZE,		
+                 (OS_PRIO	  )WIFI_TASK_PRIO,     
+                 (CPU_STK   * )&WIFI_TASK_STK[0],	
+                 (CPU_STK_SIZE)WIFI_STK_SIZE/10,	
+                 (CPU_STK_SIZE)WIFI_STK_SIZE,		
                  (OS_MSG_QTY  )0,					
                  (OS_TICK	  )0,					
                  (void   	* )0,					
                  (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR,
-                 (OS_ERR 	* )&err);				
-	OS_TaskSuspend((OS_TCB*)&StartTaskTCB,&err);		//挂起开始任务			 
+                 (OS_ERR 	* )&err);		
+								 
+	OS_TaskSuspend((OS_TCB*)&StartTaskTCB,&err);		//挂起开始任务			 							 
 	OS_CRITICAL_EXIT();	//进入临界区	 
 }
 
