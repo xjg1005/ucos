@@ -1,6 +1,7 @@
 #include "app_config.h"
 #include "app_wifi.h"
 #include "wifi_module.h"
+#include "servo.h"
 
 //任务控制块
 OS_TCB StartTaskTCB;
@@ -16,6 +17,7 @@ int main(void)
 	delay_init(168);  	//时钟初始化
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//中断分组配置
 	uart_init(115200);  //串口初始化
+	servo_init();
 	init_wifi_module_STA();
 
 	
