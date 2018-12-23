@@ -18,6 +18,7 @@ enum vc_msg_type{
 	MSG_NOTIFY_ACCLERATE,
 	MSG_NOTIFY_DECLERATE,
 	MSG_NOTIFY_BREAK,
+	MSG_NOTIFY_GET_DISTANCE,
 };
 typedef struct {
 	 uint8_t msg_type;

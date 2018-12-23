@@ -3,7 +3,7 @@
 #include "app_vehicle_contrl.h"
 #include "wifi_module.h"
 #include "servo.h"
-
+#include "sr04.h"
 //任务控制块
 OS_TCB StartTaskTCB;
 //任务堆栈	
@@ -19,9 +19,9 @@ int main(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//中断分组配置
 	uart_init(115200);  //串口初始化
 	servo_init();
+	sr04_init();
 	init_wifi_module_STA();
 
-	
 	OSInit(&err);		//初始化UCOSIII
 	OS_CRITICAL_ENTER();//进入临界区
 	//创建开始任务

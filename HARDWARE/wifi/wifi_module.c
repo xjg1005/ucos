@@ -125,7 +125,6 @@ void EXTI2_IRQHandler(void)
 {
 	OS_ERR err;
 	if((GPIO_ReadInputDataBit(SPIx_INT_GPIO_PORT,SPIx_INT_Pin))){
-		printf("MSG_NOTIFY_GET_DATA = %d\r\n",MSG_NOTIFY_GET_DATA);
 		msg_type = MSG_NOTIFY_GET_DATA;
 		printf("report get data\r\n");
 		OSQPost((OS_Q*		)&WIFI_Msg,		
