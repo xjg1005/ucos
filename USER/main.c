@@ -4,6 +4,8 @@
 #include "wifi_module.h"
 #include "servo.h"
 #include "sr04.h"
+#include "motor.h"
+
 //任务控制块
 OS_TCB StartTaskTCB;
 //任务堆栈	
@@ -20,6 +22,7 @@ int main(void)
 	uart_init(115200);  //串口初始化
 	servo_init();
 	sr04_init();
+	motor_init();
 	init_wifi_module_STA();
 
 	OSInit(&err);		//初始化UCOSIII

@@ -6,7 +6,7 @@ CPU_STK VehicleContrl_TASK_STK[VehicleContrl_STK_SIZE];
 OS_Q VehicleContrl_Msg;
 _VEHICLE_CTL_MSG vehicle_ctl_msg;
 _VEHICLE_CTL_MSG *vehicle_ctrl_msg;
-static uint16_t servo_value = 1500-1;
+static uint16_t servo_value = 1350-1;
 
 
 OS_TMR	tmr_SR04;	//定义一个定时器
@@ -14,20 +14,20 @@ void tmsr04_callback(void *p_tmr,void *p_arg); //定时器1回调函数
 
 static void turn_left(void)
 {
-	if(servo_value<2500){
-		servo_value+= 10;
+	if(servo_value<1900){
+		servo_value+= 5;
 	}else{
-		servo_value = 2500-1;
+		servo_value = 1900-1;
 	}
 	printf("turn_left vlaue = %d\r\n",servo_value);
 	servo_ctrl(servo_value);
 }
 static void turn_right(void)
 {
-	if(servo_value>500){
-		servo_value-= 10;
+	if(servo_value>800){
+		servo_value-= 5;
 	}else{
-		servo_value = 500-1;
+		servo_value = 800-1;
 	}
 	printf("turn_right vlaue = %d\r\n",servo_value);
 	servo_ctrl(servo_value);
