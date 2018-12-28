@@ -17,32 +17,21 @@
 /* User can use this section to tailor SPIx instance used and associated 
    resources */
 /* Definition for SPIx clock resources */
-#define SPIx                             SPI1
-#define SPIx_CLK_ENABLE()                	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1,ENABLE)//Ê¹ÄÜUSART1Ê±ÖÓ
-#define SPIx_SCK_GPIO_CLK_ENABLE()       RCC_APB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE)
-#define SPIx_MISO_GPIO_CLK_ENABLE()      RCC_APB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE) 
-#define SPIx_MOSI_GPIO_CLK_ENABLE()      RCC_APB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE) 
-
-#define SPIx_FORCE_RESET()               RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1,ENABLE)
-#define SPIx_RELEASE_RESET()             RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1,DISENABLE)
-
+#define SPIx                             SPI3
 /* Definition for SPIx Pins */
-#define SPIx_SCK_Pin                     GPIO_Pin_5
-#define SPIx_SCK_GPIO_PORT               GPIOA
-#define SPIx_SCK_AF                      GPIO_AF5_SPI1
-#define SPIx_MISO_Pin                    GPIO_Pin_6
-#define SPIx_MISO_GPIO_PORT              GPIOA
-#define SPIx_MISO_AF                     GPIO_AF5_SPI1
-#define SPIx_MOSI_Pin                    GPIO_Pin_7
-#define SPIx_MOSI_GPIO_PORT              GPIOA
-#define SPIx_MOSI_AF                     GPIO_AF5_SPI1
+#define SPIx_SCK_Pin                     GPIO_Pin_10
+#define SPIx_SCK_GPIO_PORT               GPIOC
+#define SPIx_MISO_Pin                    GPIO_Pin_11
+#define SPIx_MISO_GPIO_PORT              GPIOC
+#define SPIx_MOSI_Pin                    GPIO_Pin_12
+#define SPIx_MOSI_GPIO_PORT              GPIOC
 
-#define SPIx_CS_Pin                      GPIO_Pin_4 
+#define SPIx_CS_Pin                      GPIO_Pin_15 
 #define SPIx_CS_GPIO_PORT                GPIOA
-#define SPIx_INT_Pin                     GPIO_Pin_2
+#define SPIx_INT_Pin                     GPIO_Pin_11
 #define SPIx_INT_GPIO_PORT               GPIOA
 
-#define Reset_Pin                        GPIO_Pin_3
+#define Reset_Pin                        GPIO_Pin_12
 #define Reset_GPIO_PORT                  GPIOA
 /* Size of buffer */
 #define BUFFERSIZE                       (COUNTOF(aTxBuffer) - 1)
