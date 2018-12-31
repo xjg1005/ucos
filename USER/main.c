@@ -5,7 +5,9 @@
 #include "servo.h"
 #include "sr04.h"
 #include "motor.h"
-
+#include "usart2.h"  
+#include "ov2640.h" 
+#include "dcmi.h" 
 //任务控制块
 OS_TCB StartTaskTCB;
 //任务堆栈	
@@ -20,9 +22,15 @@ int main(void)
 	delay_init(168);  	//时钟初始化
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//中断分组配置
 	uart_init(115200);  //串口初始化
+	usart2_init(42,115200);		//初始化串口2波特率为115200
 	servo_init();
 	sr04_init();
 	motor_init();
+	if(!OV2640_Init())//初始化OV2640
+	{
+		printf("OV2640 over\r\n");
+	}
+
 	init_wifi_module_STA();
 
 	OSInit(&err);		//初始化UCOSIII
