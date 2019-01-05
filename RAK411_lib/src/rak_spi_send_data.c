@@ -61,9 +61,14 @@ uint16_t rak_send_data(uint32_t dest_addr,uint32_t dest_port,uint8_t socket,uint
 #endif	
 	while(1)
  	{
- 	retval = send_data(dest_addr,dest_port,socket,len,buf);
+		retval = send_data(dest_addr,dest_port,socket,len,buf);
   	if(retval==RAK_BUSY) {
 			printf("RAK_BUSY\r\n");
+                        
+			continue; 
+		} 
+  	else if(retval==RAK_BUFFER_FULL) {
+			printf("RAK_BUFFER_FULL\r\n");
                         
 			continue; 
 		} 

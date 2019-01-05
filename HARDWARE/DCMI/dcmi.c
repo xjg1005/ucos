@@ -26,7 +26,7 @@ void DCMI_IRQHandler(void)
 {
 	if(DCMI_GetITStatus(DCMI_IT_FRAME)==SET)//捕获到一帧图像
 	{
-//		jpeg_data_process(); 	//jpeg数据处理	
+		jpeg_data_process(); 	//jpeg数据处理	
 		DCMI_ClearITPendingBit(DCMI_IT_FRAME);//清除帧中断
 //		LED1=!LED1;
 		ov_frame++;  
@@ -85,10 +85,10 @@ void My_DCMI_Init(void)
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7|GPIO_Pin_6;// PB6/7   复用功能输出
   GPIO_Init(GPIOB, &GPIO_InitStructure);//初始化
 	
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_11;//PC6/7/8/9/11 复用功能输出
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9;//PC6/7/8/9/11 复用功能输出
   GPIO_Init(GPIOC, &GPIO_InitStructure);//初始化	
 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5|GPIO_Pin_6;//PE5/6  复用功能输出 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6;//PE5/6  复用功能输出 
   GPIO_Init(GPIOE, &GPIO_InitStructure);//初始化	
 
 	GPIO_PinAFConfig(GPIOA,GPIO_PinSource4,GPIO_AF_DCMI); //PA4,AF13  DCMI_HSYNC
@@ -98,7 +98,7 @@ void My_DCMI_Init(void)
  	GPIO_PinAFConfig(GPIOC,GPIO_PinSource7,GPIO_AF_DCMI); //PC7,AF13  DCMI_D1 
 	GPIO_PinAFConfig(GPIOC,GPIO_PinSource8,GPIO_AF_DCMI); //PC8,AF13  DCMI_D2
 	GPIO_PinAFConfig(GPIOC,GPIO_PinSource9,GPIO_AF_DCMI); //PC9,AF13  DCMI_D3
-	GPIO_PinAFConfig(GPIOC,GPIO_PinSource11,GPIO_AF_DCMI);//PC11,AF13 DCMI_D4 
+	GPIO_PinAFConfig(GPIOE,GPIO_PinSource4,GPIO_AF_DCMI);//PE4,AF13 DCMI_D4 
 	GPIO_PinAFConfig(GPIOB,GPIO_PinSource6,GPIO_AF_DCMI); //PB6,AF13  DCMI_D5 
 	GPIO_PinAFConfig(GPIOE,GPIO_PinSource5,GPIO_AF_DCMI); //PE5,AF13  DCMI_D6
 	GPIO_PinAFConfig(GPIOE,GPIO_PinSource6,GPIO_AF_DCMI); //PE6,AF13  DCMI_D7

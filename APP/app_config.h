@@ -28,4 +28,8 @@
 #define VehicleContrl_PRIO		5
 #define VehicleContrl_STK_SIZE 		128
 #define VehicleContrl_TASK_NAME		"VehicleContrl task"
+
+#define Camera_PRIO		6
+#define Camera_STK_SIZE 		128
+#define Camera_TASK_NAME		"Camera task"
 #endif /*__APP_CONFIG_H_H*/

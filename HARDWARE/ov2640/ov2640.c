@@ -31,7 +31,7 @@ u8 OV2640_Init(void)
 
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
   //GPIOE9,15初始化设置
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5;//PG9,15推挽输出
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2|GPIO_Pin_3;//PG9,15推挽输出
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; //推挽输出
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//100MHz

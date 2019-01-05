@@ -1,6 +1,7 @@
 #include "app_config.h"
 #include "app_wifi.h"
 #include "app_vehicle_contrl.h"
+#include "app_camera.h"
 #include "wifi_module.h"
 #include "servo.h"
 #include "sr04.h"
@@ -22,7 +23,7 @@ int main(void)
 	delay_init(168);  	//时钟初始化
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//中断分组配置
 	uart_init(115200);  //串口初始化
-	usart2_init(42,115200);		//初始化串口2波特率为115200
+//	usart2_init(42,115200);		//初始化串口2波特率为115200
 	servo_init();
 	sr04_init();
 	motor_init();
@@ -85,7 +86,11 @@ void start_task(void *p_arg)
 							(CPU_CHAR*	)"VehicleContrl Msg",	//消息队列名称
 							(OS_MSG_QTY	)VehicleContrl_MSG_Q_NUM,	//消息队列长度，这里设置为1
 							(OS_ERR*	)&err);		//错误码
-			 
+	OSQCreate ((OS_Q*		)&Camera_Msg,	//消息队列
+						(CPU_CHAR*	)"Camera Msg",	//消息队列名称
+						(OS_MSG_QTY	)CAMERA_MSG_Q_NUM,	//消息队列长度，这里设置为1
+						(OS_ERR*	)&err);		//错误码
+		 
 		//创建WIFI任务
 	OSTaskCreate((OS_TCB 	* )&WIFITaskTCB,		
 				 (CPU_CHAR	* )WIFI_TASK_NAME, 		
@@ -114,7 +119,21 @@ void start_task(void *p_arg)
                  (void   	* )0,					
                  (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR,
                  (OS_ERR 	* )&err);		
-							 
+								 
+		OSTaskCreate((OS_TCB 	* )&Camera_TaskTCB,		
+								 (CPU_CHAR	* )Camera_TASK_NAME, 		
+                 (OS_TASK_PTR )Camera_task, 			
+                 (void		* )0,					
+                 (OS_PRIO	  )Camera_PRIO,     
+                 (CPU_STK   * )&Camera_TASK_STK[0],	
+                 (CPU_STK_SIZE)Camera_STK_SIZE/10,	
+                 (CPU_STK_SIZE)Camera_STK_SIZE,		
+                 (OS_MSG_QTY  )0,					
+                 (OS_TICK	  )0,					
+                 (void   	* )0,					
+                 (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR,
+                 (OS_ERR 	* )&err);		
+						 
 	OS_TaskSuspend((OS_TCB*)&StartTaskTCB,&err);		//挂起开始任务			 							 
 	OS_CRITICAL_EXIT();	//进入临界区	 
 }

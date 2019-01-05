@@ -26,7 +26,7 @@ extern   uint32					   rak_spiTimer3;
 #define	 RAK_PSK_LEN			   64
 #define  RAK_BSSID_LEN	 		   6
 #define  RAK_AP_SCANNED_MAX		   10
-#define  RAK_MAX_DATA_SIZE	   	   1400
+#define  RAK_MAX_DATA_SIZE	   	   1024
 #define  RAK_USER_NAME_LEN		   17
 #define  RAK_USER_PSK_LEN		   17
 

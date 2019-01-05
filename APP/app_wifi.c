@@ -19,6 +19,24 @@ volatile uint8_t msg_wifi;
 OS_TMR	tmr1;	//定义一个定时器
 void tmr1_callback(void *p_tmr,void *p_arg); //定时器1回调函数
 
+void wifi_send_data(u32 len,uint8_t *data)
+{
+	u16 packge_num = len/PACKAG_LEN;
+	u16 last_len = len%PACKAG_LEN;
+	u16 i=0;
+	printf("len=%d,packge_num=%d,last_len=%d\r\n",len,packge_num,last_len);
+	if(packge_num>0){
+		for(i=0;i<packge_num;i++)
+		{
+			rak_send_data(0,0,uCmdRspFrame.recvFrame.socket_flag, PACKAG_LEN,data+i*PACKAG_LEN);
+			printf("rak_send_data cnt =%d\r\n",i);
+		}
+		
+	}
+	if(last_len>0)
+		rak_send_data(0,0,uCmdRspFrame.recvFrame.socket_flag, 
+					last_len,data+i*PACKAG_LEN);
+}
 void WIFI_task(void *p_arg)
 {
 	OS_ERR err;
@@ -77,8 +95,7 @@ void WIFI_task(void *p_arg)
 						} 
 						break;
 			case MSG_NOTIFY_SEND_DATA:
-						rak_send_data(0,0,uCmdRspFrame.recvFrame.socket_flag, 
-						sizeof(TxBuffer),TxBuffer);					
+						wifi_send_data(sizeof(TxBuffer),TxBuffer);					
 				break;
 			default:
 				break;
@@ -91,11 +108,11 @@ void tmr1_callback(void *p_tmr,void *p_arg)
 {
 	msg_wifi = MSG_NOTIFY_SEND_DATA;
 	OS_ERR err;
-	OSQPost((OS_Q*		)&WIFI_Msg,		
-		(void*		)&msg_wifi,
-		(OS_MSG_SIZE)1,
-		(OS_OPT		)OS_OPT_POST_FIFO,
-		(OS_ERR*	)&err);
+//	OSQPost((OS_Q*		)&WIFI_Msg,		
+//		(void*		)&msg_wifi,
+//		(OS_MSG_SIZE)1,
+//		(OS_OPT		)OS_OPT_POST_FIFO,
+//		(OS_ERR*	)&err);
 
 }
 

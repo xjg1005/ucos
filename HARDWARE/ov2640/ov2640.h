@@ -15,8 +15,8 @@
 //All rights reserved									  
 ////////////////////////////////////////////////////////////////////////////////// 
 
-#define OV2640_PWDN  	PGout(9)			//POWER DOWN控制信号 
-#define OV2640_RST  	PGout(15)			//复位控制信号 
+#define OV2640_PWDN  	PEout(3)			//POWER DOWN控制信号 
+#define OV2640_RST  	PEout(2)			//复位控制信号 
 ////////////////////////////////////////////////////////////////////////////////// 
 #define OV2640_MID				0X7FA2
 #define OV2640_PID				0X2642
