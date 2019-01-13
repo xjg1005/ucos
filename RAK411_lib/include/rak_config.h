@@ -36,7 +36,7 @@
 #define HIDE_ENABLE			    		1
 #define HIDE_DISENABLE					0
 /*STA*/
-#define RAK_STA_SSID			     		"DOU"        //in ap mode ,the ssid you create.  
+#define RAK_STA_SSID			     		"ChinaNet-Jqv4"        //in ap mode ,the ssid you create.  
 #define RAK_STA_PSK			     		"c5rsycsg"    //in ap mode ,psk when you join the ap.
 
 /*AP */

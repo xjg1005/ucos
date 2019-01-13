@@ -137,9 +137,9 @@ void motor_init(void)
 	INT_GPIO_Init();
 	TIM2_3_PWM_Init(100-1,84-1);
 	TIM2_4_PWM_Init(100-1,84-1);
-	motor_forward();
-	motorL_set_value(100-1);
-	motorR_set_value(60-1);
+	motor_break();
+//	motorL_set_value(50-1);
+//	motorR_set_value(50-1);
 
 }
 

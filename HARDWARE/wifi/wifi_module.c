@@ -144,7 +144,6 @@ int init_wifi_module_STA(void)
 	int retval=0;
 
 	wifi_SPI1_Init();
-	EXTIX_Init();
 	Reset_config();
 //	printf("This is a Demo to printf\n");
 	rak_init_struct(&rak_strapi);
@@ -294,6 +293,7 @@ int init_wifi_module_STA(void)
 		}
 	}
  }while(1);
+ 	EXTIX_Init();
 	return 0;
 }
 

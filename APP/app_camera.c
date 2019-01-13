@@ -97,7 +97,7 @@ void jpeg_init(void)
 	u8 *p;
 	u8 key;
 	u8 effect=0,saturation=2,contrast=2;
-	u8 size=3;		//默认是QVGA 320*240尺寸
+	u8 size=2;		//默认是QVGA 320*240尺寸
 	u8 msgbuf[15];	//消息缓存区 
 		printf("jpeg_init\r\n");
 
@@ -121,7 +121,7 @@ void Camera_task(void *p_arg)
 		u32 i; 
 	u8 *p;
 	printf("Camera_task\r\n");
-	jpeg_init();
+//	jpeg_init();
 	while(1)
 	{
 				msg=OSQPend((OS_Q*			)&Camera_Msg,   

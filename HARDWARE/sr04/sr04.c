@@ -183,7 +183,7 @@ int get_Diatance(void)
 			temp=TIM3CH3_CAPTURE_STA&0X3F; 
 			temp*=0XFFFF;		 		         //溢出时间总和
 			temp+=TIM3CH3_CAPTURE_VAL;		   //得到总的高电平时间
-			printf("HIGH:%lld us\r\n",temp); //打印总的高点平时间
+//			printf("HIGH:%lld us\r\n",temp); //打印总的高点平时间
 			distance = temp*0.017;
 			vehicle_ctl_msg.msg_type = MSG_NOTIFY_GET_DISTANCE;
 			vehicle_ctl_msg.data = &distance;
