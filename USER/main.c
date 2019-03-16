@@ -1,14 +1,11 @@
 #include "app_config.h"
 #include "app_wifi.h"
 #include "app_vehicle_contrl.h"
-#include "app_camera.h"
-#include "wifi_module.h"
 #include "servo.h"
 #include "sr04.h"
 #include "motor.h"
 #include "usart2.h"  
-#include "ov2640.h" 
-#include "dcmi.h" 
+
 //任务控制块
 OS_TCB StartTaskTCB;
 //任务堆栈	
@@ -27,12 +24,8 @@ int main(void)
 	servo_init();
 	sr04_init();
 	motor_init();
-	if(!OV2640_Init())//初始化OV2640
-	{
-		printf("OV2640 over\r\n");
-	}
 
-	init_wifi_module_STA();
+
 
 	OSInit(&err);		//初始化UCOSIII
 	OS_CRITICAL_ENTER();//进入临界区
@@ -86,10 +79,7 @@ void start_task(void *p_arg)
 							(CPU_CHAR*	)"VehicleContrl Msg",	//消息队列名称
 							(OS_MSG_QTY	)VehicleContrl_MSG_Q_NUM,	//消息队列长度，这里设置为1
 							(OS_ERR*	)&err);		//错误码
-	OSQCreate ((OS_Q*		)&Camera_Msg,	//消息队列
-						(CPU_CHAR*	)"Camera Msg",	//消息队列名称
-						(OS_MSG_QTY	)CAMERA_MSG_Q_NUM,	//消息队列长度，这里设置为1
-						(OS_ERR*	)&err);		//错误码
+
 		 
 		//创建WIFI任务
 	OSTaskCreate((OS_TCB 	* )&WIFITaskTCB,		
@@ -120,19 +110,7 @@ void start_task(void *p_arg)
                  (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR,
                  (OS_ERR 	* )&err);		
 								 
-		OSTaskCreate((OS_TCB 	* )&Camera_TaskTCB,		
-								 (CPU_CHAR	* )Camera_TASK_NAME, 		
-                 (OS_TASK_PTR )Camera_task, 			
-                 (void		* )0,					
-                 (OS_PRIO	  )Camera_PRIO,     
-                 (CPU_STK   * )&Camera_TASK_STK[0],	
-                 (CPU_STK_SIZE)Camera_STK_SIZE/10,	
-                 (CPU_STK_SIZE)Camera_STK_SIZE,		
-                 (OS_MSG_QTY  )0,					
-                 (OS_TICK	  )0,					
-                 (void   	* )0,					
-                 (OS_OPT      )OS_OPT_TASK_STK_CHK|OS_OPT_TASK_STK_CLR,
-                 (OS_ERR 	* )&err);		
+
 						 
 	OS_TaskSuspend((OS_TCB*)&StartTaskTCB,&err);		//挂起开始任务			 							 
 	OS_CRITICAL_EXIT();	//进入临界区	 
