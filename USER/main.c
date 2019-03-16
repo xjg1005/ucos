@@ -1,5 +1,5 @@
 #include "app_config.h"
-#include "app_wifi.h"
+#include "app_UART.h"
 #include "app_vehicle_contrl.h"
 #include "servo.h"
 #include "sr04.h"
@@ -71,9 +71,9 @@ void start_task(void *p_arg)
 	
 	OS_CRITICAL_ENTER();	//进入临界区
 		//创建消息队列KEY_Msg
-	OSQCreate ((OS_Q*		)&WIFI_Msg,	//消息队列
-                (CPU_CHAR*	)"WIFI Msg",	//消息队列名称
-                (OS_MSG_QTY	)WIFIMSG_Q_NUM,	//消息队列长度，这里设置为1
+	OSQCreate ((OS_Q*		)&UART_Msg,	//消息队列
+                (CPU_CHAR*	)"UART Msg",	//消息队列名称
+                (OS_MSG_QTY	)UARTMSG_Q_NUM,	//消息队列长度，这里设置为1
                 (OS_ERR*	)&err);		//错误码
 	OSQCreate ((OS_Q*		)&VehicleContrl_Msg,	//消息队列
 							(CPU_CHAR*	)"VehicleContrl Msg",	//消息队列名称
@@ -81,15 +81,15 @@ void start_task(void *p_arg)
 							(OS_ERR*	)&err);		//错误码
 
 		 
-		//创建WIFI任务
-	OSTaskCreate((OS_TCB 	* )&WIFITaskTCB,		
-				 (CPU_CHAR	* )WIFI_TASK_NAME, 		
-                 (OS_TASK_PTR )WIFI_task, 			
+		//创建UART任务
+	OSTaskCreate((OS_TCB 	* )&UARTTaskTCB,		
+				 (CPU_CHAR	* )UART_TASK_NAME, 		
+                 (OS_TASK_PTR )UART_task, 			
                  (void		* )0,					
-                 (OS_PRIO	  )WIFI_TASK_PRIO,     
-                 (CPU_STK   * )&WIFI_TASK_STK[0],	
-                 (CPU_STK_SIZE)WIFI_STK_SIZE/10,	
-                 (CPU_STK_SIZE)WIFI_STK_SIZE,		
+                 (OS_PRIO	  )UART_TASK_PRIO,     
+                 (CPU_STK   * )&UART_TASK_STK[0],	
+                 (CPU_STK_SIZE)UART_STK_SIZE/10,	
+                 (CPU_STK_SIZE)UART_STK_SIZE,		
                  (OS_MSG_QTY  )0,					
                  (OS_TICK	  )0,					
                  (void   	* )0,					

@@ -1,27 +1,26 @@
-#include "app_wifi.h"
+#include "app_uart.h"
 #include "app_vehicle_contrl.h"
 //Status任务函数
-OS_TCB WIFITaskTCB;
-CPU_STK WIFI_TASK_STK[WIFI_STK_SIZE];
-OS_Q WIFI_Msg;
+OS_TCB UARTTaskTCB;
+CPU_STK UART_TASK_STK[UART_STK_SIZE];
+OS_Q UART_Msg;
 
-volatile uint8_t msg_wifi;
+volatile uint8_t msg_UART;
 
 OS_TMR	tmr1;	//定义一个定时器
 void tmr1_callback(void *p_tmr,void *p_arg); //定时器1回调函数
 
-void wifi_send_data(u32 len,uint8_t *data)
+void UART_send_data(u32 len,uint8_t *data)
 {
 
 }
-void WIFI_task(void *p_arg)
+void UART_task(void *p_arg)
 {
 	OS_ERR err;
 	p_arg = p_arg;
-	int i;
 	void *msg;
 	OS_MSG_SIZE size;
-	uint8_t *msg_wifi;
+	uint8_t *msg_UART;
 		//创建定时器1
 	OSTmrCreate((OS_TMR		*)&tmr1,		//定时器1
                 (CPU_CHAR	*)"tmr1",		//定时器名字
@@ -35,16 +34,16 @@ void WIFI_task(void *p_arg)
 
 	while(1)
 	{
-				//请求消息WIFI_Msg
-		msg=OSQPend((OS_Q*			)&WIFI_Msg,   
+				//请求消息UART_Msg
+		msg=OSQPend((OS_Q*			)&UART_Msg,   
 					(OS_TICK		)0,
                     (OS_OPT			)OS_OPT_PEND_BLOCKING,
                     (OS_MSG_SIZE*	)&size,		
                     (CPU_TS*		)0,
                     (OS_ERR*		)&err);
-		printf("WIFI_Msg\r\n");
-		msg_wifi = (uint8_t *)msg;
-		switch(*msg_wifi){
+		printf("UART_Msg\r\n");
+		msg_UART = (uint8_t *)msg;
+		switch(*msg_UART){
 			case MSG_NOTIFY_GET_DATA:
 						
 						break;
@@ -60,10 +59,10 @@ void WIFI_task(void *p_arg)
 //定时器1的回调函数
 void tmr1_callback(void *p_tmr,void *p_arg)
 {
-	msg_wifi = MSG_NOTIFY_SEND_DATA;
-	OS_ERR err;
-//	OSQPost((OS_Q*		)&WIFI_Msg,		
-//		(void*		)&msg_wifi,
+	msg_UART = MSG_NOTIFY_SEND_DATA;
+	//OS_ERR err;
+//	OSQPost((OS_Q*		)&UART_Msg,		
+//		(void*		)&msg_UART,
 //		(OS_MSG_SIZE)1,
 //		(OS_OPT		)OS_OPT_POST_FIFO,
 //		(OS_ERR*	)&err);

@@ -388,14 +388,14 @@
               <FilePath>..\APP\app_config.h</FilePath>
             </File>
             <File>
-              <FileName>app_wifi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\APP\app_wifi.c</FilePath>
-            </File>
-            <File>
               <FileName>app_vehicle_contrl.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\app_vehicle_contrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\app_uart.c</FilePath>
             </File>
           </Files>
         </Group>

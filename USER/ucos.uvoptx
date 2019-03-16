@@ -253,8 +253,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\APP\app_wifi.c</PathWithFileName>
-      <FilenameWithoutPath>app_wifi.c</FilenameWithoutPath>
+      <PathWithFileName>..\APP\app_vehicle_contrl.c</PathWithFileName>
+      <FilenameWithoutPath>app_vehicle_contrl.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -265,8 +265,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\APP\app_vehicle_contrl.c</PathWithFileName>
-      <FilenameWithoutPath>app_vehicle_contrl.c</FilenameWithoutPath>
+      <PathWithFileName>..\APP\app_uart.c</PathWithFileName>
+      <FilenameWithoutPath>app_uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

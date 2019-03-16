@@ -21,15 +21,13 @@
 //任务堆栈大小	
 #define START_STK_SIZE 		512
 
-#define WIFI_TASK_PRIO		4
-#define WIFI_STK_SIZE 		128
-#define WIFI_TASK_NAME		"WIFI task"
+#define UART_TASK_PRIO		4
+#define UART_STK_SIZE 		128
+#define UART_TASK_NAME		"UART task"
 
 #define VehicleContrl_PRIO		5
 #define VehicleContrl_STK_SIZE 		128
 #define VehicleContrl_TASK_NAME		"VehicleContrl task"
 
-#define Camera_PRIO		6
-#define Camera_STK_SIZE 		128
-#define Camera_TASK_NAME		"Camera task"
+
 #endif /*__APP_CONFIG_H_H*/
