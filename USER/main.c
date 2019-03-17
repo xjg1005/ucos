@@ -20,7 +20,7 @@ int main(void)
 	delay_init(168);  	//时钟初始化
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//中断分组配置
 	uart_init(115200);  //串口初始化
-//	usart2_init(42,115200);		//初始化串口2波特率为115200
+	usart2_init(42,115200);		//初始化串口2波特率为115200
 	servo_init();
 	sr04_init();
 	motor_init();

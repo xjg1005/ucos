@@ -1,7 +1,8 @@
 #ifndef __USART2_H
 #define __USART2_H 
 #include "sys.h"
-#include "stdio.h"	  
+#include "stdio.h"	
+#include "stm32f4xx_conf.h"
 //////////////////////////////////////////////////////////////////////////////////	   
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
 //ALIENTEK STM32F407开发板
@@ -17,7 +18,13 @@
 //修改说明
 //无
 ////////////////////////////////////////////////////////////////////////////////// 	
- 
+#define USART2_REC_LEN  			200
+extern u8 USART2_RX_BUF[USART2_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
+//接收状态
+//bit15，	接收完成标志
+//bit14，	接收到0x0d
+//bit13~0，	接收到的有效字节数目
+extern u16 USART2_RX_STA;       //接收状态标记	
 void usart2_init(u32 pclk1,u32 bound); 
 #endif	   
 

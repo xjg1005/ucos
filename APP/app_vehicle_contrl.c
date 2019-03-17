@@ -5,7 +5,7 @@ OS_TCB VehicleContrl_TaskTCB;
 CPU_STK VehicleContrl_TASK_STK[VehicleContrl_STK_SIZE];
 OS_Q VehicleContrl_Msg;
 _VEHICLE_CTL_MSG vehicle_ctl_msg;
-_VEHICLE_CTL_MSG *vehicle_ctrl_msg;
+//_VEHICLE_CTL_MSG *vehicle_ctrl_msg;
 static uint16_t servo_value = 1350-1;
 
 
