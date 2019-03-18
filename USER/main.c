@@ -5,7 +5,7 @@
 #include "sr04.h"
 #include "motor.h"
 #include "usart2.h"  
-
+#include "encoder.h"
 //任务控制块
 OS_TCB StartTaskTCB;
 //任务堆栈	
@@ -24,7 +24,7 @@ int main(void)
 	servo_init();
 	sr04_init();
 	motor_init();
-
+	encoder_init();
 
 
 	OSInit(&err);		//初始化UCOSIII

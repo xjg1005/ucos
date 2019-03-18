@@ -52,7 +52,7 @@ void Caculate_Encoder()
 	extern int Encoder_Data[];
 	if(TIM4->CR1&0x10)
 	{
-		Encoder_Data[0] = 0xffff - TIM4->CNT;
+		Encoder_Data[0] = TIM4->CNT;
 		TIM4->CNT = 0xffff;
 	}
 	else 

@@ -1,6 +1,7 @@
 #include "app_vehicle_contrl.h"
 #include "servo.h"
 #include "sr04.h"
+#include "encoder.h"
 OS_TCB VehicleContrl_TaskTCB;
 CPU_STK VehicleContrl_TASK_STK[VehicleContrl_STK_SIZE];
 OS_Q VehicleContrl_Msg;
@@ -11,7 +12,8 @@ static uint16_t servo_value = 1350-1;
 
 OS_TMR	tmr_SR04;	//定义一个定时器
 void tmsr04_callback(void *p_tmr,void *p_arg); //定时器1回调函数
-
+OS_TMR	tmr_encoder;	//定义一个定时器
+void tmencoder_callback(void *p_tmr,void *p_arg); //定时器1回调函数
 static void turn_left(void)
 {
 	if(servo_value<1900){
@@ -52,6 +54,16 @@ void VehicleContrl_task(void *p_arg)
                 (OS_ERR	    *)&err);		//返回的错误码
 	OSTmrStart(&tmr_SR04,&err);
 
+		//创建定时器1
+	OSTmrCreate((OS_TMR		*)&tmr_encoder,		//定时器1
+                (CPU_CHAR	*)"tmr_encoder",		//定时器名字
+                (OS_TICK	 )0,			//0ms
+                (OS_TICK	 )7,          //50*10=500ms
+                (OS_OPT		 )OS_OPT_TMR_PERIODIC, //周期模式
+                (OS_TMR_CALLBACK_PTR)tmencoder_callback,//定时器1回调函数
+                (void	    *)0,			//参数为0
+                (OS_ERR	    *)&err);		//返回的错误码
+	OSTmrStart(&tmr_encoder,&err);
 
 	while(1)
 	{
@@ -84,4 +96,7 @@ void tmsr04_callback(void *p_tmr,void *p_arg)
 {
 	get_Diatance();
 }
-
+void tmencoder_callback(void *p_tmr,void *p_arg)
+{
+	Caculate_Encoder();
+}
