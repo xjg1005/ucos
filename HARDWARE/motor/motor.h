@@ -12,4 +12,7 @@
 #define INT3 PEout(11)	// DS0
 #define INT4 PEout(12)	// DS1
 extern void motor_init(void);
+extern void motor_break(void);
+extern void motor_forward(void);
+extern void motor_reverse(void);
 #endif

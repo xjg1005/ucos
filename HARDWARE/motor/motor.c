@@ -2,7 +2,11 @@
 #include "app_config.h"
 #include "app_vehicle_contrl.h"
 
+#define PWM_MAX   100
+#define PWM_MIN  	45
+extern uint8_t last_status;
 u16 Encoder_Data[2]={0,0};
+float Kp= 0.3,Ki=0.1,Kd = 0.5;
 static void INT_GPIO_Init(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
@@ -105,7 +109,8 @@ void motor_break(void)
 		INT2 = 0;
 		INT3 = 0;
 		INT4 = 0;
-
+	  last_status = vehicle_status.runnng_status;
+		vehicle_status.runnng_status=STATUS_BREAK;
 }
 
 void motor_forward(void)
@@ -114,7 +119,8 @@ void motor_forward(void)
 		INT2 = 1;
 		INT3 = 0;
 		INT4 = 1;
-
+		last_status = vehicle_status.runnng_status;
+		vehicle_status.runnng_status=STATUS_ADVANCE;
 }
 void motor_reverse(void)
 {
@@ -122,7 +128,8 @@ void motor_reverse(void)
 		INT2 = 0;
 		INT3 = 1;
 		INT4 = 0;
-
+	  last_status = vehicle_status.runnng_status;
+		vehicle_status.runnng_status=STATUS_BACKWARD;
 }
 void motorL_set_value(u16 value)
 {
@@ -139,8 +146,33 @@ void motor_init(void)
 	TIM9_2_PWM_Init(100-1,168-1);
 	//motor_break();
 	motor_forward();
-	motorL_set_value(100-1);
-	motorR_set_value(100-1);      
+	//motorL_set_value(70-1);
+	//motorR_set_value(70-1);      
 
 }
-
+int Moter_PWM_Limit(int PWM)
+{
+	if(PWM > PWM_MAX ) PWM = PWM_MAX;
+	if(PWM < PWM_MIN ) PWM = PWM_MIN;
+	return  PWM;
+}
+int MotorR_PI(int Encoder,int Target)
+{ 
+	 static int Bias,Pwm,Last_bias,Last_Last_bias;
+	 Bias=Target-Encoder;  
+	Pwm+=Kp*(Bias-Last_bias)+Ki*Bias+Kd*(Bias-2*Last_bias+Last_Last_bias);
+	Last_Last_bias = Last_bias;
+	 Last_bias=Bias;	  
+	 Pwm = Moter_PWM_Limit(Pwm);
+	 return Pwm;  
+}
+int MotorL_PI(int Encoder,int Target)
+{ 
+	 static int Bias2,Pwm2,Last_bias2,Last_Last_bias2;
+	 Bias2=Target-Encoder;  
+	Pwm2+=Kp*(Bias2-Last_bias2)+Ki*Bias2+Kd*(Bias2-2*Last_bias2+Last_Last_bias2);
+	Last_Last_bias2 = Last_bias2;
+	 Last_bias2=Bias2;	  
+	 Pwm2 = Moter_PWM_Limit(Pwm2);
+	 return Pwm2;  
+}

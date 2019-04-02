@@ -5,7 +5,7 @@ static uint8_t TIM2_Flag = 0;
 static uint8_t busy_Flag = 0;
 uint8_t distance = 0;
 static   u16 TIM = 0;
-static _VEHICLE_CTL_MSG *vehicle_ctrl_msg;
+
 void GPIO_Configuration()
 {
   GPIO_InitTypeDef  GPIO_InitStructure;
@@ -186,7 +186,8 @@ int get_Diatance(void)
 //			printf("HIGH:%lld us\r\n",temp); //打印总的高点平时间
 			distance = temp*0.017;
 			vehicle_ctl_msg.msg_type = MSG_NOTIFY_GET_DISTANCE;
-			vehicle_ctl_msg.data = &distance;
+			vehicle_status.distance = distance;
+			vehicle_ctl_msg.data = &vehicle_status;
 			OSQPost((OS_Q*		)&VehicleContrl_Msg,		
 							(void*		)&vehicle_ctl_msg,
 							(OS_MSG_SIZE)1,

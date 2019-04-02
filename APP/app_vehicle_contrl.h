@@ -20,9 +20,26 @@ enum vc_msg_type{
 	MSG_NOTIFY_BREAK,
 	MSG_NOTIFY_GET_DISTANCE,
 };
+
+enum vc_status_type{
+	STATUS_TURN_LEFT = 0xB0,
+	STATUS_TURN_RIGHT,
+	STATUS_ADVANCE,
+	STATUS_BACKWARD,
+	STATUS_ACCLERATE,
+	STATUS_DECLERATE,
+	STATUS_BREAK,
+	STATUS_GET_DISTANCE,
+};
+typedef struct {
+	 uint8_t runnng_status;
+	 uint8_t distance;
+} _VEHICLE_SATUS;
 typedef struct {
 	 uint8_t msg_type;
-	 uint8_t *data;
+	 void *data;
 } _VEHICLE_CTL_MSG;
+
 extern _VEHICLE_CTL_MSG vehicle_ctl_msg;
+extern _VEHICLE_SATUS vehicle_status;
 #endif

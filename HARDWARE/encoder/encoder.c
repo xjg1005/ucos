@@ -50,14 +50,22 @@ void TIM4_ENC_Init(void)  //Moter_C
 void Caculate_Encoder()
 {
 	extern int Encoder_Data[];
+	int i;
 	if(TIM4->CR1&0x10)
 	{
-		Encoder_Data[0] = TIM4->CNT;
+		Encoder_Data[0] = 0xffff - TIM4->CNT;
+		if(Encoder_Data[0]>2000){
+			Encoder_Data[0]=0xffff-Encoder_Data[0];
+		}	
+
 		TIM4->CNT = 0xffff;
 	}
 	else 
 	{
 		Encoder_Data[0] = TIM4->CNT;
+		if(Encoder_Data[0]>2000){
+			Encoder_Data[0]=0xffff-Encoder_Data[0];
+		}	
 		TIM4->CNT = 0;
 		
 	}
@@ -72,7 +80,7 @@ void Caculate_Encoder()
 		TIM5->CNT = 0;
 		
 	}
-	printf("Encoder_Data[0]=%d,Encoder_Data[1]=%d\n",Encoder_Data[0],Encoder_Data[1]);
+	printf("Data[0]=%d,Data[1]=%d\n",Encoder_Data[0],Encoder_Data[1]);
 }
 void encoder_init()
 {
